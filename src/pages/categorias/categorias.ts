@@ -1,7 +1,7 @@
 import { CategoriaDTO } from './../../models/categoria.dto';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { CategoriaService } from '../../service/categoria.service';
+import { CategoriaService } from '../../service/domain/categoria.service';
 import { API_CONFIG } from '../../config/config.api';
 
 /**
@@ -30,8 +30,8 @@ export class CategoriasPage {
   ionViewDidLoad() {
     this.categoriaService.findAll()
         .subscribe( 
-          resp => { console.log(resp); this.items = resp},
-          error => {console.log(error)} 
+          resp => { this.items = resp},
+          error => {} 
         );
   }
 
