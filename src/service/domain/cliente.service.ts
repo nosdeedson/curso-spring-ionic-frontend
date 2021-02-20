@@ -1,5 +1,4 @@
-import { EnderecoDTO } from './../../models/endereco.dto';
-import { ClienteCadastroDTO } from './../../models/cliente.cadastro.dto';
+
 import { ClienteDTO } from './../../models/clientes.dto';
 import { StorageService } from '../storage.service';
 import { API_CONFIG } from '../../config/config.api';
@@ -23,7 +22,8 @@ export class ClienteService{
         return this.http.get(url, {responseType: 'blob'})
     }
 
-    insertCliente( obj: any){
+    insertCliente( obj: ClienteDTO){
+        console.log(obj)
         return this.http.post(`${API_CONFIG.baseUrl}/clientes`, obj,
         {
             observe: 'response',

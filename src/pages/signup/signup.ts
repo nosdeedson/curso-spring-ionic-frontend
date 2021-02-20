@@ -35,7 +35,7 @@ export class SignupPage {
        this.formGroup = this.formBuilder.group({
          nome: ['Jussara souza', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
          email: ['ju@gmail.com', [Validators.required, Validators.email]],
-         CNPJ_CPF: ['67506856093', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
+         CNPJ_CPF: ['61013528000190', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
          tipo: ['', [Validators.required]],
          senha: ['1234', [Validators.required]],
          confirmeSenha: ['1234', [Validators.required]],
