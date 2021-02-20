@@ -1,3 +1,4 @@
+import { StorageService } from './../../service/storage.service';
 import { AuthService } from './../../service/auth.service';
 import { CredenciaisDTO } from './../../models/credenciais.dto';
 import { Component } from '@angular/core';
@@ -10,7 +11,6 @@ import { MenuController } from 'ionic-angular/components/app/menu-controller';
   templateUrl: 'home.html'
 })
 export class HomePage {
-
    credenciais: CredenciaisDTO = {
     email : "",
     senha : ""
@@ -18,7 +18,8 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,
      public menu: MenuController,
-     public auth: AuthService) {   }
+     public auth: AuthService,
+     public storage: StorageService) {   }
 
   login() {
     this.auth.authenticate(this.credenciais)
@@ -29,7 +30,21 @@ export class HomePage {
     
   }
 
+  signup(){
+    this.navCtrl.setRoot('SignupPage')
+  }
+
   ionViewDidEnter() {
+    let localUser = this.storage.getLocalUser();
+    if (localUser) {
+      this.auth.refreshToken().subscribe(response => {
+        this.auth.successFulLogin(response.headers.get('Authorization'))
+        this.navCtrl.setRoot('CategoriasPage')
+      }, error => { });
+    }
+  }
+
+  ionViewWillEnter(){
     this.menu.swipeEnable(false);
   }
 

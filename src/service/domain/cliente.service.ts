@@ -1,9 +1,12 @@
+import { EnderecoDTO } from './../../models/endereco.dto';
+import { ClienteCadastroDTO } from './../../models/cliente.cadastro.dto';
+import { ClienteDTO } from './../../models/clientes.dto';
 import { StorageService } from '../storage.service';
 import { API_CONFIG } from '../../config/config.api';
-import { ClienteDTO } from '../../models/clientes.dto';
 import { Observable } from 'rxjs/Rx';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { endTimeRange } from '@angular/core/src/profile/wtf_impl';
 
 @Injectable()
 export class ClienteService{
@@ -18,6 +21,14 @@ export class ClienteService{
     getImageFromBucket( id : string) : Observable<any>{
         let url = `${API_CONFIG.baseBucketUrl}/cp${id}.jpg`;
         return this.http.get(url, {responseType: 'blob'})
+    }
+
+    insertCliente( obj: any){
+        return this.http.post(`${API_CONFIG.baseUrl}/clientes`, obj,
+        {
+            observe: 'response',
+            responseType: 'text'
+        })
     }
 
 }

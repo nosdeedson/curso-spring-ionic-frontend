@@ -38,8 +38,13 @@ export class ProfilePage {
             this.getImageIfExist()
           }, error => {
             if ( error.status == 403){
-              this.navCtrl.setRoot('HomePage')
+              this.handleErro('HomePage')
+            } else if( error.status == 500){
+              this.handleErro('CategoriasPage')
+            } else{
+              this.handleErro('HomePage')
             }
+    
           });
     }else{
       this.navCtrl.setRoot('HomePage')
@@ -51,6 +56,10 @@ export class ProfilePage {
         .subscribe( response =>{
           this.clienteDTO.imageUrl = `${API_CONFIG.baseBucketUrl}/cp${this.clienteDTO.id}.jpg`
         }, erro =>{})
+  }
+
+  private handleErro( destino: string){
+    this.navCtrl.setRoot(destino);
   }
 
 }
