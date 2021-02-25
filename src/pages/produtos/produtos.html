@@ -1,5 +1,5 @@
 <!--
-  Generated template for the CategoriasPage page.
+  Generated template for the ProdutosPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -9,7 +9,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>categorias</ion-title>
+    <ion-title>Produtos</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -17,13 +17,16 @@
   <ion-fab top right edge>
     <button navPush="CartPage" ion-fab color="secondary"><ion-icon name="cart"></ion-icon></button>
   </ion-fab>
-  <p> Categorias</p>
   <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="showProdutos(item.id)">
-      <ion-thumbnail item-start>
-        <img src="{{bucketUrl}}/cat{{item.id}}.jpg">
+    <button ion-item *ngFor="let item of itens" (click)="showDetail(item.id)">
+      <ion-thumbnail item-start *ngIf="item.preco > 0">
+        <img [src]="item?.imageUrl || 'assets/imgs/prod.jpg'" alt="imagem produto">
       </ion-thumbnail>
-      <h2>{{item.nome}}</h2>
+      <h2 >{{item.nome}}</h2>
+      <h2 *ngIf="item.preco > 0"> {{item.preco | currency}}</h2>
     </button>
   </ion-list>
+  <div class="sem_produtos" *ngIf="semProdutos != ''">
+      {{semProdutos}}
+  </div>
 </ion-content>

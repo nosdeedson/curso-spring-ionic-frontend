@@ -22,10 +22,10 @@
       <ion-label class="tamanho-fonte-1"  position="stacked">Email*</ion-label>
       <ion-input formControlName="email" type="text"></ion-input>
     </ion-item>
-    <p class="danger" *ngIf="formGroup.controls.CNPJ_CPF.dirty && formGroup.controls.CNPJ_CPF.errors" margin-left>Valor inválido</p>
+    <p class="danger" *ngIf="formGroup.controls.cpfOuCnpj.dirty && formGroup.controls.cpfOuCnpj.errors" margin-left>Valor inválido</p>
     <ion-item class="distancia-elementos">
       <ion-label class="tamanho-fonte-1"  position="stacked">CNPJ/CPF*</ion-label>
-      <ion-input formControlName="CNPJ_CPF" type="text"></ion-input>
+      <ion-input formControlName="cpfOuCnpj" type="text"></ion-input>
     </ion-item>
     <ion-list radio-group formControlName="tipo" class="distancia-elementos">
       <ion-list-header class="tamanho-fonte-2">Tipo Cliente*</ion-list-header>

@@ -1,8 +1,8 @@
+import { API_CONFIG } from './../../config/config.api';
 import { CategoriaDTO } from './../../models/categoria.dto';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CategoriaService } from '../../service/domain/categoria.service';
-import { API_CONFIG } from '../../config/config.api';
 
 /**
  * Generated class for the CategoriasPage page.
@@ -29,10 +29,23 @@ export class CategoriasPage {
 
   ionViewDidLoad() {
     this.categoriaService.findAll()
-        .subscribe( 
-          resp => { this.items = resp},
-          error => {} 
-        );
+        .subscribe( response => {
+          this.items = response;
+          this.getImageIfExists();
+        }, erro => {});
+  }
+
+  showProdutos( categoria_id : string){
+    this.navCtrl.push('ProdutosPage', {categoria_id: categoria_id});
+  }
+
+  getImageIfExists(){
+    this.items.forEach( item =>{
+      this.categoriaService.getImage(item.id)
+        .subscribe( response => {
+          item.imageUrl = `${API_CONFIG.baseBucketUrl}/cat${item.id}.jpg`;
+        }, error => {})
+    });
   }
 
 }

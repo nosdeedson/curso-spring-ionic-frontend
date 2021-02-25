@@ -1,3 +1,4 @@
+import { API_CONFIG } from './../config/config.api';
 
 import { StorageService } from './../service/storage.service';
 
@@ -20,18 +21,24 @@ export class ErrorInterceptor implements HttpInterceptor{
             //     errorObj = JSON.parse(errorObj);
             // }
             console.log("erro detectado.");
+            
             if ( error.error == null){
                 this.handleErroGeneric(error);
             }
             let state = error.status;
-            console.log(error.error.message)
             switch(state){
                 case 401:
                     this.handleErro("Email ou senha inválidos", 'Erro 401');
                     break;
                 case 403:
-                    this.storage.setLocalUser(null);
-                    this.handleErro("Usuário não autorizado", 'Erro 403');
+                    let urlBd = API_CONFIG.baseUrl;
+                    if (urlBd.length == req.url.length) {
+                        this.storage.setLocalUser(null);
+                        this.handleErro("Usuário não autorizado", 'Erro 403');
+                    }
+                    break;
+                case 422:
+                    this.handleErro422("Requisição correta, mas email ou documentos já usados");
                     break;
                 default:
                     this.handleErroSistema(error)      
@@ -39,6 +46,20 @@ export class ErrorInterceptor implements HttpInterceptor{
             return Observable.throw(errorObj);
             
         }) as any;
+    }
+
+    private handleErro422( mensagem : string){
+        let alert = this.alertController.create({
+            title: "Campo com erro",
+            message: mensagem,
+            enableBackdropDismiss: false,
+            buttons:[
+                {
+                    text: 'OK'
+                }
+            ]
+        })
+        alert.present();
     }
 
     private handleErro(messagem: string, titulo: string){
@@ -54,15 +75,15 @@ export class ErrorInterceptor implements HttpInterceptor{
     }
 
     private handleErroSistema(obj: any){
-        let alert = this.alertController.create({
-            title: obj.error.error,
-            message: obj.error.message,
-            enableBackdropDismiss: false,
-            buttons: [
-                { text: 'OK'}
-            ]
-        });
-        alert.present()
+        // let alert = this.alertController.create({
+        //     title: obj.error.error,
+        //     message: obj.error.message,
+        //     enableBackdropDismiss: false,
+        //     buttons: [
+        //         { text: 'OK'}
+        //     ]
+        // });
+        // alert.present()
     }
 
     private handleErroGeneric(obj: any){

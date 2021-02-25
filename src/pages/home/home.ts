@@ -19,7 +19,10 @@ export class HomePage {
   constructor(public navCtrl: NavController,
      public menu: MenuController,
      public auth: AuthService,
-     public storage: StorageService) {   }
+     public storage: StorageService) { 
+      this.credenciais.senha ="1234";
+      this.credenciais.email="maria@gmail.com"
+    }
 
   login() {
     this.auth.authenticate(this.credenciais)

@@ -1,5 +1,4 @@
 import { AuthService } from './../service/auth.service';
-import { StorageService } from './../service/storage.service';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -26,7 +25,8 @@ export class MyApp {
       { title: 'LOGOUT', component: ''},
       { title: 'Home', component: 'HomePage' },
       { title: 'Categorias', component: 'CategoriasPage' },
-      { title: 'Profile', component: 'ProfilePage' }
+      { title: 'Profile', component: 'ProfilePage' },
+      { title: 'Carrinho', component : 'CartPage'}
     ];
 
   }

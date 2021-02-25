@@ -1,6 +1,5 @@
 import { ClienteService } from '../../service/domain/cliente.service';
 import { ClienteDTO } from './../../models/clientes.dto';
-import { LocalUser } from './../../models/local.user';
 import { StorageService } from './../../service/storage.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';

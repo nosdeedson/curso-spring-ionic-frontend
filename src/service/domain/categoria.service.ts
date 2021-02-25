@@ -1,9 +1,9 @@
-import { API_CONFIG } from '../../config/config.api';
+import { API_CONFIG } from './../../config/config.api';
+import { ProdutoDTO } from './../../models/produtodto';
 import { CategoriaDTO } from '../../models/categoria.dto';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
-import { Page } from 'ionic-angular/navigation/nav-util';
 
 @Injectable()
 export class  CategoriaService {
@@ -14,6 +14,11 @@ export class  CategoriaService {
 
     findAll() : Observable<CategoriaDTO[]>{
         return this.http.get<CategoriaDTO[]>(`${API_CONFIG.baseUrl}/categorias/listar`);
+    }
+
+    getImage( id : string) {
+        let url = `${API_CONFIG.baseBucketUrl}/cat${id}.jpg`;
+        return this.http.get(url, {responseType : 'blob'});
     }
 
 }

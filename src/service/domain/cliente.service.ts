@@ -3,9 +3,9 @@ import { ClienteDTO } from './../../models/clientes.dto';
 import { StorageService } from '../storage.service';
 import { API_CONFIG } from '../../config/config.api';
 import { Observable } from 'rxjs/Rx';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { endTimeRange } from '@angular/core/src/profile/wtf_impl';
+
 
 @Injectable()
 export class ClienteService{

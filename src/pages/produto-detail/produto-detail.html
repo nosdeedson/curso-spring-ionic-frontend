@@ -1,0 +1,34 @@
+<!--
+  Generated template for the ProdutoDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>ProdutoDetail</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-fab top right edge>
+    <button navPush="CartPage" ion-fab color="secondary"><ion-icon name="cart"></ion-icon></button>
+  </ion-fab>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{item?.nome}}</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-thumbnail>
+        <img [src]="item?.imageUrl || 'assets/imgs/prod.jpg'" alt="">
+      </ion-thumbnail>
+      <ion-label>Preço</ion-label>
+      <h2>{{item?.preco | currency}}</h2>
+    </ion-card-content>
+  </ion-card>
+  <button ion-button block outline (click)="addToCart(item)">Adicionar ao carrinho</button>
+</ion-content>
