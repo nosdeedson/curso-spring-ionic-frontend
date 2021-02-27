@@ -1,3 +1,4 @@
+import { EnderecoService } from './../service/domain/endereco.service';
 import { CartService } from './../service/domain/cart.service';
 import { ProdutoService } from './../service/domain/produto.service';
 import { AuthInterceptorProvider } from './../interceptors/auth-interceptor';
@@ -41,7 +42,8 @@ import { ErrorInterceptorProvider } from '../interceptors/erro-interceptors';
     StorageService,
     ClienteService,
     ProdutoService,
-    CartService
+    CartService,
+    EnderecoService
   ]
 })
 export class AppModule {}

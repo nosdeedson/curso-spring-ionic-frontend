@@ -1,0 +1,37 @@
+<!--
+  Generated template for the PaymentPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Tipo de pagamento</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="formGroup"  (ngSubmit)="nextPage()">
+    <ion-list radio-group formControlName="tipoPagamento">
+      <ion-list-header>Tipo pagamento</ion-list-header>
+      <ion-item>
+        <ion-label>Pagamento com cartão</ion-label>
+        <ion-radio value="pagamentoComCartao"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Pagamento com Boleto</ion-label>
+        <ion-radio value="pagamentoComBoleto"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <ion-item *ngIf="formGroup.value['tipoPagamento'] == 'pagamentoComCartao'" >
+      <ion-label>Parcelas</ion-label>
+      <ion-select formControlName="numeroParcelas">
+        <ion-option *ngFor="let n of parcelas; first as f" [value]="n" [selected]="f">{{n}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <button ion-button block type="submit" [hidden]="formGroup.invalid">Próximo</button>
+  </form>
+</ion-content>

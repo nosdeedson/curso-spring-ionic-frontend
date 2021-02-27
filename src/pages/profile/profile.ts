@@ -5,12 +5,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { API_CONFIG } from '../../config/config.api';
 
-/**
- * Generated class for the ProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -31,9 +25,7 @@ export class ProfilePage {
     if (user && user.email){
       this.clienteService.findClienteByEmail(user.email)
           .subscribe( response =>{
-            this.clienteDTO.id = response.id.toString()
-            this.clienteDTO.nome = response.nome
-            this.clienteDTO.email= response.email
+            this.clienteDTO = response as ClienteDTO;
             this.getImageIfExist()
           }, error => {
             if ( error.status == 403){

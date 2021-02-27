@@ -1,5 +1,4 @@
 import { API_CONFIG } from './../../config/config.api';
-import { ProdutoDTO } from './../../models/produtodto';
 import { CategoriaDTO } from '../../models/categoria.dto';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';

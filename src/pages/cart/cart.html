@@ -9,7 +9,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Cart</ion-title>
+    <ion-title>Carrinho</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -34,5 +34,6 @@
       <p>Total por produto: {{item.quantidade * item.produtoDto.preco | currency}}</p>
     </ion-item>
   </ion-list> 
-  <button ion-button color="secondary" class="botao" (click)="goOn()">Continuar comprando</button>
+  <button ion-button color="primary" class="botao" (click)="goOn()">Continuar comprando</button>
+  <button ion-button color="secondary"  class="botao" (click)="checkout()" >Finalizar pedido</button>
 </ion-content>

@@ -1,0 +1,23 @@
+<!--
+  Generated template for the PickAdressPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Escolha endereço</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list align='center'>
+    <ion-list-header>Selecione um endereço</ion-list-header>
+    <button *ngFor="let end of enderecos" class="espacoTop" (click)="nextPage(end)">
+      <h2>{{end.logradouro}} -  {{end.numero}}</h2>
+      <h2>{{end.bairro}} , {{end.cidade.nome}}</h2>
+      <h2>CEP: {{end.cep}}, {{end.complemento}},</h2>
+      <h2>{{end.cidade.estado.nome}}</h2>
+    </button>
+  </ion-list>
+</ion-content>
