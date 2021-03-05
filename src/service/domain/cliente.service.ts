@@ -1,4 +1,5 @@
 
+
 import { ClienteDTO } from './../../models/clientes.dto';
 import { StorageService } from '../storage.service';
 import { API_CONFIG } from '../../config/config.api';
@@ -18,7 +19,11 @@ export class ClienteService{
     // }
     findClienteByEmail (email: string) {
         return this.http.get(`${API_CONFIG.baseUrl}/clientes/email?email=${email}`);
-     }
+    }
+
+    findById( clienteId : string){
+        return this.http.get(`${API_CONFIG.baseUrl}/clientes/${clienteId}`);
+    }
 
     getImageFromBucket( id : string) : Observable<any>{
         let url = `${API_CONFIG.baseBucketUrl}/cp${id}.jpg`;

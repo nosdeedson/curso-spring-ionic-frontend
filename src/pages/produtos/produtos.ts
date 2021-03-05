@@ -3,7 +3,8 @@ import { API_CONFIG } from './../../config/config.api';
 import { ProdutoService } from './../../service/domain/produto.service';
 import { ProdutoDTO } from './../../models/produtodto';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { markParentViewsForCheck } from '@angular/core/src/view/util';
 
 /**
  * Generated class for the ProdutosPage page.
@@ -19,37 +20,48 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 })
 export class ProdutosPage {
 
-  itens: ProdutoDTO[];
-  semProdutos : string;
+  itens: ProdutoDTO[] = [];
+  page : number = 0;
+  loaded : number = 2000;
+  start : number = 0;
+  end : number;
+  size : number = 6;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     public produtoService : ProdutoService,
-    public alertController : AlertController) {  }
+    public alertController : AlertController,
+    public loadingController : LoadingController) {  }
 
   ionViewDidLoad() {
     let categoria_id = this.navParams.get('categoria_id')
-    this.produtoService.findByCategoria(categoria_id)
+    this.produtoService.findByCategoria(categoria_id, this.page, this.size)
       .subscribe( response => {
-        this.itens = response['content'];
+        this.start = this.itens.length;
+        this.itens = this.itens.concat(response['content']);
+        this.end = this.itens.length - 1;
         if ( this.itens.length == 0){
           this.notFindProducts();
         }
         if ( this.itens.length > 0){ 
-          this.getImageIdExist();
+          this.getImageIdExist(this.start, this.end);
+          this.loaded = 100;
         }
-        else{
-          this.semProdutos = "Não há produtos a serem exibidos!!"
-        }
-      }, error => {})
+        let loader = this.presentLoading();
+        loader.dismiss();
+      }, error => {
+        let loader = this.presentLoading();
+        loader.dismiss();
+      })
   }
 
-  getImageIdExist(){
-    this.itens.forEach( item => {
-      this.produtoService.findSmallImageFromBucket(item.id)
-        .subscribe( response => {
-          item.imageUrl = `${API_CONFIG.baseBucketUrl}/prod${item.id}.jpg`;
-        }, error => {})
-    });
+  getImageIdExist(start : number, end : number){
+
+    for (let i = start; i < end; i++){
+      this.produtoService.findSmallImageFromBucket(this.itens[i].id)
+      .subscribe( response =>{
+        this.itens[i].imageUrl = `${API_CONFIG.baseBucketUrl}/prod${this.itens[i].id}.jpg`
+      }, erro => {})
+    }
   }
 
   showDetail( produtoId : string){
@@ -69,5 +81,30 @@ export class ProdutosPage {
     })
     alert.present();
     this.navCtrl.setRoot('CategoriasPage');
+  }
+
+  presentLoading() {
+    const loading = this.loadingController.create({
+      content: "Aguarde ..."
+    });
+    loading.present();
+    return loading;
+  }
+  
+  doRefresh(event) {
+    this.itens= [];
+    this.page = 0;
+    this.ionViewDidLoad();
+    setTimeout(() => {
+      event.complete();
+    }, this.loaded);
+  }
+
+  loadData(event) {
+    this.page++;
+    this.ionViewDidLoad();
+    setTimeout(() => {
+      event.complete();
+    }, 500);
   }
 }

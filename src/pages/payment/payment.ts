@@ -43,6 +43,6 @@ export class PaymentPage {
     if ( pag.numeroParcelas != null)
       this.pedido.numeroParcelas= pag.numeroParcelas;
     this.pedido.tipoPagamento= pag.tipoPagamento;
-    console.log(this.pedido)
+    this.navCtrl.setRoot('OrderConfirmationPage', {pedido: this.pedido});
   }
 }
