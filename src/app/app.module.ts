@@ -17,6 +17,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CategoriaService } from '../service/domain/categoria.service';
 import { ErrorInterceptorProvider } from '../interceptors/erro-interceptors';
+import { ImageUtilService } from '../service/image-util.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ErrorInterceptorProvider } from '../interceptors/erro-interceptors';
     ClienteService,
     ProdutoService,
     CartService,
-    EnderecoService
+    EnderecoService,
+    ImageUtilService
   ]
 })
 export class AppModule {}
