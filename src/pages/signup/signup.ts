@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators  } from '@angular/forms';
 import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CidadeDTO } from '../../models/cidades.dto';
+import { ConsultaIbgeService } from '../../service/consulta.ibge.service';
 
 
 @IonicPage()
@@ -17,7 +18,7 @@ export class SignupPage {
 
   formGroup: FormGroup;
   cidadesDTO : CidadeDTO[];
-  estadosDTO: EstadoDTO[];
+  states: EstadoDTO[];
 
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
@@ -25,7 +26,8 @@ export class SignupPage {
      public estadoService: EstadoService,
      public clienteService: ClienteService,
      public alertControl: AlertController,
-     public formBuilder: FormBuilder) {
+     public formBuilder: FormBuilder,
+     public consultaIbge: ConsultaIbgeService) {
        this.formGroup = this.formBuilder.group({
          nome: ['Jussara souza', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
          email: ['ju@gmail.com', [Validators.required, Validators.email]],
@@ -47,12 +49,12 @@ export class SignupPage {
   }
 
   ionViewDidLoad() {
-    this.estadoService.findAll()
-    .subscribe(response =>{
-      this.estadosDTO = response;
-      this.formGroup.controls.estadoId.setValue(this.estadosDTO[0].id);
-      this.updateCidades();
-    }, error => {});
+    this.consultaIbge.findStates()
+      .subscribe( resposta => {
+        this.states = resposta;
+        this.formGroup.controls.estadoId.setValue(this.states[0].id);
+        this.updateCidades();
+      }, erro => {console.log(erro)})
   }
 
   signUpUser(){
@@ -81,11 +83,9 @@ export class SignupPage {
 
   updateCidades(){
     let estado_id = this.formGroup.value.estadoId;
-    this.cidadeService.findAll(estado_id)
-      .subscribe(response =>{
-        this.cidadesDTO = response;
-        this.formGroup.controls.cidadeId.setValue(null);
-      })
-
+    this.consultaIbge.findCities(estado_id)
+      .subscribe( resposta => {
+        this.cidadesDTO = resposta;
+      }, erro => { console.log(erro)})
   }
 }

@@ -6,7 +6,10 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>Signup</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Registrar</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -87,14 +90,14 @@
     </ion-item>
     <ion-item class="distancia-elementos">
       <ion-label class="tamanho-fonte-1" position="stacked">Estado*</ion-label>
-      <ion-select formControlName="estadoId" (ionChange)="updateCidades()">
-        <ion-option *ngFor="let estado of estadosDTO; first as f" [value]="estado.id">{{estado.nome}}</ion-option>
+      <ion-select formControlName="estadoId" (ionChange)="updateCidades()" >
+        <ion-option *ngFor="let state of states; first as f" [value]="state.id">{{state.nome}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item class="distancia-elementos">
       <ion-label class="tamanho-fonte-1" position="stacked">Cidade*</ion-label>
       <ion-select formControlName="cidadeId">
-        <ion-option *ngFor="let cidade of cidadesDTO" [value]="cidade.id">{{cidade.nome}}</ion-option>
+        <ion-option *ngFor="let cidade of cidadesDTO; first as f" [value]="cidade.id">{{cidade.nome}}</ion-option>
       </ion-select>
     </ion-item>
     <button [disabled]="formGroup.invalid" ion-button block type="submit">Criar conta</button>
