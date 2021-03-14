@@ -1,0 +1,28 @@
+
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Nova Senha</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <form [formGroup]="formGroup" (ngSubmit)="novaSenha()">
+    <p class="danger" *ngIf="formGroup.controls.senha.dirty && formGroup.controls.senha.errors" margin-left>Valor inválido</p>
+    <ion-item class="distancia-elementos">
+      <ion-label class="tamanho-fonte-1"  position="stacked">Senha*</ion-label>
+      <ion-input formControlName="senha" type="password"></ion-input>
+    </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.confirmeSenha.dirty && formGroup.controls.confirmeSenha.errors" margin-left>Valor inválido</p>
+    <ion-item class="distancia-elementos">
+      <ion-label class="tamanho-fonte-1"  position="stacked">Confirme senha*</ion-label>
+      <ion-input formControlName="confirmeSenha" type="password"></ion-input>
+    </ion-item>
+
+    <button [disabled]="formGroup.invalid" ion-button block type="submit">Enviar</button>
+  </form>
+
+</ion-content>

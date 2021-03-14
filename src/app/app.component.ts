@@ -26,7 +26,8 @@ export class MyApp {
       { title: 'Home', component: 'HomePage' },
       { title: 'Categorias', component: 'CategoriasPage' },
       { title: 'Profile', component: 'ProfilePage' },
-      { title: 'Carrinho', component : 'CartPage'}
+      { title: 'Carrinho', component : 'CartPage'},
+      { title: 'Nova senha', component : 'NovaSenhaPage' }
     ];
 
   }

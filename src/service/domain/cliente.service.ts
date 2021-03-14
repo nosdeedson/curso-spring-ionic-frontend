@@ -52,4 +52,12 @@ export class ClienteService{
         })
     }
 
+    novaSenha( senha : String){
+        return this.http.put(`${API_CONFIG.baseUrl}/clientes/novaSenha`, senha,
+        {
+            observe: 'response',
+            responseType : 'text'
+        });
+    }
+
 }
